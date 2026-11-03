@@ -61,8 +61,10 @@ func patchTasks(c *gin.Context) {
 func main() {
 	router := gin.Default()
 
-	router.Use(cors.New(cors.DefaultConfig()))
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:5173"}
 
+	router.Use(cors.New(config))
 	router.GET("/api/tasks", getTasks)
 	router.POST("/api/tasks", postTasks)
 	router.PATCH("/api/tasks/:id/toggle", patchTasks)
